@@ -1,0 +1,101 @@
+@model IEnumerable<mae_movie.Models.Pelicula>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Titulo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FechaLanzamiento)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MinutosDuracion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Sinopsis)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PosterUrl)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.GeneroId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PromedioRating)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Plataforma)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PlataformaId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Genero)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ListaReview)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UsuarioFavorito)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(model => item.Titulo)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.FechaLanzamiento)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.MinutosDuracion)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.Sinopsis)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.PosterUrl)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.GeneroId)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.PromedioRating)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.Plataforma)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.PlataformaId)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.Genero)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.ListaReview)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.UsuarioFavorito)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
