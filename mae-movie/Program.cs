@@ -1,6 +1,5 @@
 using mae_movie.DATA;
 using mae_movie.Models;
-
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,8 +12,37 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<MovieDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("MovieDbContext")));
 
-builder.Services.AddIdentity<Usuario, IdentityRole>()
-    .AddEntityFrameworkStores<MovieDbContext>();
+//incluir identity
+builder.Services.AddIdentityCore<Usuario>(options =>
+{
+    options.SignIn.RequireConfirmedAccount = false;
+    options.Password.RequireNonAlphanumeric = false;
+    options.Password.RequireUppercase = false;
+    options.Password.RequiredLength = 3;
+
+})
+    .AddRoles<IdentityRole>()
+    .AddEntityFrameworkStores<MovieDbContext>()
+    .AddSignInManager();
+
+
+//manejo de la cookie, en deafult pero hay que ponerlo
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultScheme = IdentityConstants.ApplicationScheme;
+
+})
+.AddIdentityCookies();
+
+
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.LoginPath = "/Usuario/Login";
+    options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
+    options.SlidingExpiration = true;
+    options.AccessDeniedPath = "/Account/AccessDenied";
+});
+
 
 
 var app = builder.Build();
@@ -47,7 +75,7 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseRouting();
-
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapStaticAssets();

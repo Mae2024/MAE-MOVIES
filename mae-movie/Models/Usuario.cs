@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace mae_movie.Models
@@ -20,4 +21,23 @@ namespace mae_movie.Models
 
 
     }
+
+    public class UsuarioViewModel
+    {
+        [Required]
+        [StringLength(50)]
+        public string Nombre { get; set; }
+        [Required]
+        [StringLength(50)]
+        public string Apellido { get; set; }
+        [Required]
+        [EmailAddress]
+        public string Email { get; set; }
+      
+        public string Clave { get; set; }
+        [PasswordPropertyText]
+        public string ConfirmarClave { get; set; }
+    }
+
+
 }

@@ -1,0 +1,105 @@
+﻿@model Pelicula
+@{
+
+    ViewData["Title"] = "Detalles de la Película";
+    int  horas = Model.MinutosDuracion / 60;
+    int  minutos = Model.MinutosDuracion % 60;
+    int anio = Model.FechaLanzamiento.Year;
+}
+
+
+<!-- Main Content -->
+<main class="flex-grow w-full max-w-container-max mx-auto px-gutter py-8">
+    <!-- Hero Section: Poster & Key Details -->
+    <div class="flex flex-col md:flex-row gap-8 mb-12">
+        <!-- Poster -->
+        <div class="w-full md:w-1/3 shrink-0 rounded-xl overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.5)]">
+            <img class="w-full h-auto object-cover aspect-[2/3] transform transition duration-500 hover:scale-105" data-alt="@Model.Titulo" src="@Model.PosterUrl" />
+        </div>
+        <!-- Details -->
+        <div class="w-full md:w-2/3 flex flex-col justify-center">
+            <div class="flex justify-between items-start mb-4">
+                <h1 class="text-display-lg font-display-lg text-on-surface">@Model.Titulo</h1>
+                <button aria-label="Add to Favorites" class="bg-surface-container-high hover:bg-surface-bright text-on-surface p-3 rounded-full shadow-[0_10px_30px_rgba(0,0,0,0.5)] transition-colors group">
+                    <span class="material-symbols-outlined group-hover:text-tertiary-container transition-colors" data-icon="favorite">favorite</span>
+                </button>
+            </div>
+            <div class="flex flex-wrap gap-3 mb-6">
+                <span class="px-3 py-1 rounded-full bg-white/10 text-on-surface text-label-md font-label-md">@Model.Genero.Descripcion</span>
+                
+                <span class="flex items-center gap-1 text-on-surface-variant text-label-md font-label-md">
+                    <span class="material-symbols-outlined text-[16px]">schedule</span>@horas h @minutos m @anio 
+                </span>
+                <span class="flex items-center gap-1 text-on-surface-variant text-label-md font-label-md">
+                    <span class="material-symbols-outlined text-[16px]">calendar_today</span> Oct 12, 2024
+                </span>
+            </div>
+            <div class="mb-8">
+                <h2 class="text-headline-md font-headline-md text-on-surface mb-2">Synopsis</h2>
+                <p class="text-body-lg font-body-lg text-on-surface-variant leading-relaxed">
+                    @Model.Sinopsis
+                </p>
+            </div>
+            <div class="flex gap-4">
+                <button class="bg-primary-container text-white px-8 py-3 rounded-lg font-bold text-label-md font-label-md flex items-center gap-2 hover:bg-inverse-primary transition-colors shadow-[0_10px_30px_rgba(0,0,0,0.5)]">
+                    <span class="material-symbols-outlined" data-weight="fill">play_arrow</span>
+                    Ver en StreamFlix
+                </button>
+                <button class="border border-primary text-primary px-8 py-3 rounded-lg font-bold text-label-md font-label-md flex items-center gap-2 hover:bg-primary/10 transition-colors">
+                    <span class="material-symbols-outlined">movie</span>
+                    Ver Trailer
+                </button>
+            </div>
+        </div>
+    </div>
+    <!-- Reviews Section -->
+    <div class="mb-20">
+        <div class="flex justify-between items-center mb-6 border-b border-white/5 pb-4">
+            <h2 class="text-headline-md font-headline-md text-on-surface">Reviews</h2>
+            <button class="bg-secondary-container text-on-secondary-container px-4 py-2 rounded-lg font-bold text-label-md font-label-md flex items-center gap-2 shadow-[0_10px_30px_rgba(0,0,0,0.5)]">
+                <span class="material-symbols-outlined">rate_review</span>
+                Añadir Review
+            </button>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Review Card 1 -->
+            <div class="bg-surface-container p-6 rounded-xl shadow-[0_10px_30px_rgba(0,0,0,0.5)] border border-white/5">
+                <div class="flex justify-between items-start mb-4">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full bg-surface-variant flex items-center justify-center text-on-surface font-bold text-body-lg">
+                            JD
+                        </div>
+                        <div>
+                            <h3 class="text-body-md font-bold text-on-surface">John Doe</h3>
+                            <p class="text-label-md text-on-surface-variant">2 days ago</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center text-secondary-container">
+                        <span class="material-symbols-outlined" data-icon="star" data-weight="fill">star</span>
+                        <span class="ml-1 text-label-md font-bold text-on-surface">4.5</span>
+                    </div>
+                </div>
+                <p class="text-body-md text-on-surface-variant">Visually stunning and narratively gripping. The world-building is top-notch, though pacing slows slightly in the second act.</p>
+            </div>
+            <!-- Review Card 2 -->
+            <div class="bg-surface-container p-6 rounded-xl shadow-[0_10px_30px_rgba(0,0,0,0.5)] border border-white/5">
+                <div class="flex justify-between items-start mb-4">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full bg-surface-variant flex items-center justify-center text-on-surface font-bold text-body-lg">
+                            AS
+                        </div>
+                        <div>
+                            <h3 class="text-body-md font-bold text-on-surface">Anna Smith</h3>
+                            <p class="text-label-md text-on-surface-variant">1 week ago</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center text-secondary-container">
+                        <span class="material-symbols-outlined" data-icon="star" data-weight="fill">star</span>
+                        <span class="ml-1 text-label-md font-bold text-on-surface">5.0</span>
+                    </div>
+                </div>
+                <p class="text-body-md text-on-surface-variant">An absolute masterpiece. The soundtrack and cinematography combined create an unforgettable cinematic experience. Highly recommended.</p>
+            </div>
+        </div>
+    </div>
+</main>
