@@ -1,4 +1,8 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<Usuario> SignInManager
+
+
+<!DOCTYPE html>
 <html class="dark" lang="es">
 <head>
     <meta charset="utf-8" />
@@ -9,8 +13,8 @@
     <!-- Bootstrap primero -->
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/mae_movie.styles.css" asp-append-version="true" />
-
+@*     <link rel="stylesheet" href="~/mae_movie.styles.css" asp-append-version="true" />
+ *@
     <!-- Fuentes -->
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet" />
@@ -144,6 +148,23 @@
                         </li>
                     </ul>
                 </div>
+                    @if (SignInManager.IsSignedIn(User))
+                {
+                    <div class="d-flex align-items-center gap-2">
+                        <span class="text-on-surface-variant">Hola, @User.Identity.Name!</span>
+                        <form method="post" asp-area="" asp-controller="Usuario" asp-action="Logout" class="m-0">
+                            @Html.AntiForgeryToken()
+                            <button type="submit" class="btn btn-link text-on-surface-variant hover:text-primary transition-colors p-0">Cerrar sesión</button>
+                        </form>
+                    </div>
+                }
+                else
+                {
+                    <div class="d-flex align-items-center gap-2">
+                        <a class="btn btn-link text-on-surface-variant hover:text-primary transition-colors p-0" asp-area="" asp-controller="Usuario" asp-action="Registro">Iniciar sesión</a>
+                        <a class="btn btn-link text-on-surface-variant hover:text-primary transition-colors p-0" asp-area="" asp-controller="Usuario" asp-action="Registro">Registrarse</a>
+                    </div>
+                }
             </div>
         </nav>
     </header>

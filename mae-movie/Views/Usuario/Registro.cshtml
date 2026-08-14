@@ -26,12 +26,14 @@
         </div>
         <div class="p-8">
             <!-- Login Form -->
-            <form class="flex flex-col gap-6" id="form-login" onsubmit="event.preventDefault();">
+            <form asp-controller="Usuario" asp-action="Login" method="post" class="flex flex-col gap-6" id="form-login">
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(false, "", new { @class = "text-error text-sm" })
                 <div class="flex flex-col gap-2">
                     <label class="font-label-md text-label-md text-on-surface/70" asp-for="Email">Correo Electrónico</label>
                     <div class="relative">
                         <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">mail</span>
-                        <input class="input-dark w-full rounded-lg py-3 pl-10 pr-4 font-body-md text-body-md placeholder:text-on-surface-variant/50 transition-shadow" id="login-email" placeholder="tu@email.com" required="" type="email" />
+                        <input asp-for="Email" class="input-dark w-full rounded-lg py-3 pl-10 pr-4 font-body-md text-body-md placeholder:text-on-surface-variant/50 transition-shadow" id="login-email" placeholder="tu@email.com"  type="email" />
                     </div>
                 </div>
                 <div class="flex flex-col gap-2">
@@ -41,7 +43,7 @@
                     </div>
                     <div class="relative">
                         <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">lock</span>
-                        <input  autocomplete="new-password" class="input-dark w-full rounded-lg py-3 pl-10 pr-12 font-body-md text-body-md placeholder:text-on-surface-variant/50 transition-shadow" id="login-password" placeholder="••••••••" required="" type="password" />
+                        <input asp-for="Clave"  autocomplete="new-password" class="input-dark w-full rounded-lg py-3 pl-10 pr-12 font-body-md text-body-md placeholder:text-on-surface-variant/50 transition-shadow" id="login-password" placeholder="••••••••"  type="password" />
                         <button class="absolute right-3 top-1/2 -translate-y-1/2 text-on-surface-variant hover:text-on-surface focus:outline-none" type="button">
                             <span class="material-symbols-outlined">visibility</span>
                         </button>
@@ -53,12 +55,14 @@
             </form>
             <!-- Register Form -->
 
-            <form class="flex flex-col gap-6 hidden" id="form-register" onsubmit="event.preventDefault();">
+            <form asp-controller="Usuario" asp-action="Registro" class="flex flex-col gap-6 hidden" id="form-register" method="post">
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(false, "", new { @class = "text-error text-sm" })
                 <div class="flex flex-col gap-2">
                     <label class="font-label-md text-label-md text-on-surface/70" asp-for="Nombre">Nombre</label>
                     <div class="relative">
                         <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">person</span>
-                        <input class="input-dark w-full rounded-lg py-3 pl-10 pr-4 font-body-md text-body-md placeholder:text-on-surface-variant/50 transition-shadow" asp-for="Nombre" id="reg-name" placeholder="Tu Nombre" required="" type="text" />
+                        <input class="input-dark w-full rounded-lg py-3 pl-10 pr-4 font-body-md text-body-md placeholder:text-on-surface-variant/50 transition-shadow" asp-for="Nombre" id="reg-name" placeholder="Tu Nombre"  type="text" />
                         <span asp-validation-for="Nombre" class="text-error text-xs"></span>
                     </div>
                 </div>
@@ -66,7 +70,7 @@
                     <label class="font-label-md text-label-md text-on-surface/70" asp-for="Apellido">Apellido</label>
                     <div class="relative">
                         <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">person</span>
-                        <input class="input-dark w-full rounded-lg py-3 pl-10 pr-4 font-body-md text-body-md placeholder:text-on-surface-variant/50 transition-shadow" asp-for="Apellido" id="reg-name" placeholder="Tu Apellido" required="" type="text" />
+                        <input class="input-dark w-full rounded-lg py-3 pl-10 pr-4 font-body-md text-body-md placeholder:text-on-surface-variant/50 transition-shadow" asp-for="Apellido" id="reg-name" placeholder="Tu Apellido" type="text" />
                         <span asp-validation-for="Apellido" class="text-error text-xs"></span>      
                     </div>
                 </div>

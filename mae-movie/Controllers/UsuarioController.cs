@@ -18,9 +18,48 @@ namespace mae_movie.Controllers
         {
             return View();
         }
+
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Login(LoginViewModel usuario)
+        {
+            if (ModelState.IsValid)
+            {
+                var resultado = await _signInManager.PasswordSignInAsync(
+                    usuario.Email,
+                    usuario.Clave,
+                    isPersistent: false,
+                    lockoutOnFailure: false);
+
+                if (resultado.Succeeded)
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+
+                // Login failed: show a single general error and return Registro view with minimal model
+                ModelState.Clear();
+                ModelState.AddModelError(string.Empty, "Usuario o contraseña incorrectos");
+                var vm = new UsuarioViewModel { Email = usuario.Email };
+                return View("Registro", vm);
+            }
+
+            // If modelstate invalid (login data invalid), return Registro with provided email only
+            var vmInvalid = new UsuarioViewModel { Email = usuario?.Email };
+            return View("Registro", vmInvalid);
+        }
+   
+
+        public IActionResult Registro()
+        {
+            return View();
+        }
+
+
         [HttpPost]
         [ValidateAntiForgeryToken]  //validacion de token para evitar ataques CSRF (Cross-Site Request Forgery), 
-        public async Task<IActionResult> Login( UsuarioViewModel usuario)
+        public async Task<IActionResult> Registro(UsuarioViewModel usuario)
         {
             if (ModelState.IsValid)
             {
@@ -47,23 +86,20 @@ namespace mae_movie.Controllers
                         ModelState.AddModelError(string.Empty, error.Description);
                     }
                 }
+               
             }
-            return View(usuario);
+            return View("Registro", usuario);
         }
-   
-        public IActionResult Registro()
-        {
-            return View();
-        }
+
         [HttpPost]
-        public IActionResult Registro(string user)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Logout()
         {
-            return View();
+            await _signInManager.SignOutAsync();
+            return RedirectToAction("Index", "Home");
         }
-        public IActionResult Logout() 
-        {
-            return View();
-        }
+
+
         public IActionResult AccessDenied()
         {
             return View();
