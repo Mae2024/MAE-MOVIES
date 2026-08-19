@@ -1,4 +1,5 @@
 ﻿using mae_movie.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -49,7 +50,7 @@ namespace mae_movie.Controllers
             var vmInvalid = new UsuarioViewModel { Email = usuario?.Email };
             return View("Registro", vmInvalid);
         }
-   
+
 
         public IActionResult Registro()
         {
@@ -86,7 +87,7 @@ namespace mae_movie.Controllers
                         ModelState.AddModelError(string.Empty, error.Description);
                     }
                 }
-               
+
             }
             return View("Registro", usuario);
         }
@@ -103,6 +104,52 @@ namespace mae_movie.Controllers
         public IActionResult AccessDenied()
         {
             return View();
+        }
+
+        [Authorize]
+        public async Task<IActionResult> MiPerfil()
+        {
+            var usuarioActual = await _userManager.GetUserAsync(User);
+            
+            var usuariovm = new MiPerfilViewModel
+            {
+                Nombre = usuarioActual.Nombre,
+                Apellido = usuarioActual.Apellido,
+                Email = usuarioActual.Email,
+                //ImagenPerfilUrl = usuarioActual.ImagenPerfilUrl
+            };
+
+            return View(usuariovm);
+        }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> MiPerfil(MiPerfilViewModel usuariovm)
+        {
+            if (ModelState.IsValid)
+            {
+                var usuarioActual = await _userManager.GetUserAsync(User);
+
+                usuarioActual.Nombre = usuariovm.Nombre;
+                usuarioActual.Apellido = usuariovm.Apellido;
+              
+                var resultado = await _userManager.UpdateAsync(usuarioActual);
+                if (resultado.Succeeded)
+                {
+                    ViewBag.Mensaje = "Perfil actualizado correctamente";
+                    return View(usuariovm);
+                }
+                else
+                {
+                    foreach (var error in resultado.Errors)
+                    {
+                        ModelState.AddModelError(string.Empty, error.Description);
+                    }
+                }
+            }
+            return View(usuariovm);
+
         }
     }
 }

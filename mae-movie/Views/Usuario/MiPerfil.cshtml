@@ -1,0 +1,72 @@
+﻿@model MiPerfilViewModel
+}
+
+<!-- Main Content Area -->
+<main class="flex-grow pt-20 md:pt-8 px-gutter pb-8 max-w-2xl mx-auto w-full">
+    <!-- Desktop Header (Hidden on Mobile) -->
+    <div class="hidden md:flex items-center gap-4 mb-8">
+        <button asp-action="Home" class="text-on-surface hover:text-primary transition-colors flex items-center justify-center p-2 rounded-full bg-surface-container-high hover:bg-surface-variant">
+            <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">arrow_back</span>
+        </button>
+        <h1 class="text-headline-lg font-headline-lg text-on-surface dark:text-on-surface">Editar Perfil</h1>
+    </div>
+    <form  method="post" class="space-y-8">
+        <!-- Avatar Section -->
+        <div class="flex flex-col items-center gap-4">
+            <div class="relative group cursor-pointer">
+                <img class="w-32 h-32 rounded-full object-cover border-4 border-surface-container-high shadow-lg" data-alt="A cinematic portrait placeholder image for a user profile avatar. Dark cinematic lighting with a subtle blue rim light, modern and professional. High contrast, clean aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDX0FZrV_gM75Jwal3MT3e_TdfsLOyrx9GUCux9u1HnaaPGQMBiPpvH7v-BRMfKtSYjpejiVYOPNpWhP5jWlXCwaegnuwHutfU8bi07V3hZyTPPDolgC4ZMYJMiTOvLmna_81cz8H73-1_ygupI3P2ipsEYtcpo1lJApNw-d0TzxkEyoqOq5lxxP96yuOSnK7SCP0YAXqn7A8X24IdAPp97IwKr9T1ICbJD74CHjFi-eqn0K0qwBU2mOg" />
+                <div class="absolute inset-0 bg-black/50 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                    <span class="material-symbols-outlined text-white text-3xl" style="font-variation-settings: 'FILL' 1;">photo_camera</span>
+                </div>
+            </div>
+            <button class="text-primary font-label-md text-label-md hover:underline" type="button">Cambiar foto</button>
+        </div>
+        <div> 
+            <h2 class="fs-2 fw-bold mb-1" >@Model.Nombre @Model.Apellido    </h2>
+            <p class="text-secondary">@Model.Email</p>
+        </div>
+        <!-- Basic Info Form -->
+        <div class="bg-surface-container-high rounded-xl p-6 shadow-[0_10px_30px_rgba(0,0,0,0.5)] border border-white/5 space-y-6">
+            <div>
+                <label class="block text-label-md font-label-md text-white/70 mb-2" for="Nombre" >Nombre</label>
+                <input class="w-full form-input-dark rounded-lg px-4 py-3 text-body-md font-body-md" asp-for="Nombre" type="text" placeholder="Tu nombre" />
+            </div>
+        
+            <div>
+                <label class="block text-label-md font-label-md text-white/70 mb-2" for="Apellido">Nombre Completo</label>
+                <input class="w-full form-input-dark rounded-lg px-4 py-3 text-body-md font-body-md" asp-for="Apellido" type="text" placeholder="Apellido" />
+            </div>
+            <div>
+                <label class="block text-label-md font-label-md text-white/70 mb-2" for="Email">Correo electrónico</label>
+                <input class="w-full form-input-dark rounded-lg px-4 py-3 text-body-md font-body-md" asp-for="Email" placeholder="Tu correo electrónico" />
+            </div>
+        </div>
+        <!-- Interests / Genres Section -->
+        <div class="bg-surface-container-high rounded-xl p-6 shadow-[0_10px_30px_rgba(0,0,0,0.5)] border border-white/5">
+            <h3 class="text-body-lg font-body-lg font-semibold text-on-surface mb-4 flex items-center gap-2">
+                <span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">movie_filter</span>
+                Géneros Favoritos
+            </h3>
+            <div class="flex flex-wrap gap-2">
+                <button class="chip active text-label-md font-label-md px-4 py-2 rounded-full" type="button">Sci-Fi</button>
+                <button class="chip active text-label-md font-label-md px-4 py-2 rounded-full" type="button">Thriller</button>
+                <button class="chip text-label-md font-label-md text-on-surface px-4 py-2 rounded-full" type="button">Acción</button>
+                <button class="chip text-label-md font-label-md text-on-surface px-4 py-2 rounded-full" type="button">Drama</button>
+                <button class="chip text-label-md font-label-md text-on-surface px-4 py-2 rounded-full" type="button">Comedia</button>
+                <button class="chip active text-label-md font-label-md px-4 py-2 rounded-full" type="button">Horror</button>
+                <button class="chip text-label-md font-label-md text-on-surface px-4 py-2 rounded-full flex items-center gap-1 border border-dashed border-white/20" type="button">
+                    <span class="material-symbols-outlined text-sm">add</span> Añadir
+                </button>
+            </div>
+        </div>
+        <!-- Action Buttons -->
+        <div class="flex flex-col sm:flex-row gap-4 pt-4">
+            <button class="w-full sm:w-auto bg-[#0d6efd] text-white font-label-md text-label-md font-bold py-3 px-8 rounded-lg hover:bg-blue-600 transition-colors shadow-lg shadow-blue-500/20 order-1 sm:order-2" type="submit">
+                Guardar Cambios
+            </button>
+            <button class="w-full sm:w-auto bg-transparent border border-[#0d6efd] text-primary font-label-md text-label-md py-3 px-8 rounded-lg hover:bg-blue-500/10 transition-colors order-2 sm:order-1" type="button">
+                Cancelar
+            </button>
+        </div>
+    </form>
+</main>
